@@ -4,8 +4,8 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 
 const PlayerInput = ({number}) => {
   return (
-    
       <TextField
+        id={`${number}`}
         label={`Player ${number}`}
         InputProps={{
           startAdornment: (
