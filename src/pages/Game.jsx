@@ -1,7 +1,12 @@
+import Header from "../components/Header";
+import MainGame from "../components/MainGame";
 
 const Game = () => {
   return (
-    <div>Game</div>
+    <div>
+      <Header></Header>
+      <MainGame></MainGame>
+    </div>
   )
 }
 
