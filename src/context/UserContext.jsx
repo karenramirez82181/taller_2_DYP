@@ -8,27 +8,27 @@ const users = [
     { id: 2, name: ''},
 ];
 
-var GameId =''
+var GameId ='';
 
 const UsersProvider = ({ children })=> {
     
     const [Users, setUsers] = useState(users)
-    const [CardsPlayer1, setCardsPlayer1] = useState([])
-    const [CardsPlayer2, setCardsPlayer2] = useState([])
+    const [playerOneCards, setplayerOneCards] = useState([])
+    const [playerTwoCards, setplayerTwoCards] = useState([])
 
-    const getCardsPlayer1 = async() =>{
+    const getplayerOneCards = async() =>{
         const url = `https://deckofcardsapi.com/api/deck/${GameId}/draw/?count=10`
-        const resp = await fetch(url);
-        const data = await resp.json();
+        const response = await fetch(url);
+        const data = await response.json();
         console.log(data.cards)
-        setCardsPlayer1(data.cards)
+        setplayerOneCards(data.cards)
     }
-    const getCardsPlayer2 = async() =>{
+    const getplayerTwoCards = async() =>{
         const url = `https://deckofcardsapi.com/api/deck/${GameId}/draw/?count=10`
-        const resp = await fetch(url);
-        const data = await resp.json();
+        const response = await fetch(url);
+        const data = await response.json();
         console.log(data.cards)
-        setCardsPlayer2(data.cards)
+        setplayerTwoCards(data.cards)
     }
 
     const handlerUsers = () =>{
@@ -43,13 +43,13 @@ const UsersProvider = ({ children })=> {
             const {data} = await axios(url);
             GameId = data.deck_id;
             console.log(GameId)
-            getCardsPlayer1()
-            getCardsPlayer2()
+            getplayerOneCards()
+            getplayerTwoCards()
         }
         query() 
     }
 
-    return <UsersContext.Provider value={{ Users, handlerUsers }}>
+    return <UsersContext.Provider value = {{ Users, handlerUsers, playerOneCards, playerTwoCards }}>
         {children}
     </UsersContext.Provider>
 }
