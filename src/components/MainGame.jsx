@@ -1,4 +1,5 @@
 import Button from "@mui/material/Button";
+import PlayerDeck from "./PlayerDeck";
 
 const MainGame = () => {
   return (
@@ -6,6 +7,7 @@ const MainGame = () => {
         <Button variant="contained">
             Login
         </Button>
+        <PlayerDeck></PlayerDeck>
     </div>
   )
 }

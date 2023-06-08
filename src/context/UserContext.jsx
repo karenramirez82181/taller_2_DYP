@@ -39,7 +39,7 @@ const UsersProvider = ({ children })=> {
 
         const query =async ()=>
         {
-            const url = `https://deckofcardsapi.com/api/deck/new/`
+            const url = `https://deckofcardsapi.com/api/deck/new/shuffle/`
             const {data} = await axios(url);
             GameId = data.deck_id;
             console.log(GameId)
