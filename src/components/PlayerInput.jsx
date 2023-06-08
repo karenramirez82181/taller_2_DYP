@@ -5,6 +5,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 const PlayerInput = ({number}) => {
   return (
       <TextField
+        defaultValue={number == 1 ? 'One':'Two'}
         id={`${number}`}
         label={`Player ${number}`}
         InputProps={{
@@ -16,7 +17,6 @@ const PlayerInput = ({number}) => {
         }}
         variant="standard"
       />
-    
   );
 };
 

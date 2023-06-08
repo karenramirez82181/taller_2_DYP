@@ -4,8 +4,8 @@ import axios from "axios";
 const UsersContext = createContext()
 
 const users = [
-    { id: 1, name: ''},
-    { id: 2, name: ''},
+    { id: 1, name: 'One'},
+    { id: 2, name: 'Two'},
 ];
 
 var GameId ='';
@@ -32,9 +32,10 @@ const UsersProvider = ({ children })=> {
     }
 
     const handlerUsers = () =>{
-
         const newUsers = Users.map(
-            u => u.id === 1 ? {...u, name:document.getElementById("1").value} : {...u, name:document.getElementById("2").value});
+            u => u.id === 1 ? 
+            {...u, name:document.getElementById("1").value} : 
+            {...u, name:document.getElementById("2").value});
         setUsers(newUsers);
 
         const query =async ()=>

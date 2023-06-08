@@ -5,7 +5,7 @@ const MainGame = () => {
   return (
     <div>
         <Button variant="contained">
-            Login
+          Cards
         </Button>
         <PlayerDeck></PlayerDeck>
     </div>

@@ -2,19 +2,22 @@ import Card from "./Card";
 import { useContext } from "react";
 import UsersContext from "../context/UserContext";
 import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
 
 const PlayerDeck = () => {
-  const { playerOneCards, playerTwoCards } = useContext(UsersContext);
+  const { Users, playerOneCards, playerTwoCards } = useContext(UsersContext);
   return (
     <div>
-      <ImageList sx={{ width: 500, height: 250 }} cols={10} rowHeight={164}>
+      <h3>Player {Users.find(user => user.id==1).name}</h3>
+      <p>Cards obtained</p>
+      <ImageList sx={{ width: 1300, height: 164 }} cols={10} rowHeight={164}>
         {playerOneCards.map((card) => (
           
             <Card key={card.code} imagen={card.image} />
         ))}
       </ImageList>
-      <ImageList sx={{ width: 500, height: 250 }} cols={10} rowHeight={164}>
+      <h3>Player {Users.find(user => user.id==2).name}</h3>
+      <p>Cards obtained</p>
+      <ImageList sx={{ width: 1300, height: 164 }} cols={10} rowHeight={164}>
         {playerTwoCards.map((card) => (
             <Card key={card.code} imagen={card.image} />
         ))}
