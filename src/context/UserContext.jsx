@@ -16,6 +16,7 @@ const UsersProvider = ({ children }) => {
   const [playerOneCards, setplayerOneCards] = useState([]);
   const [playerTwoCards, setplayerTwoCards] = useState([]);
   const [count, setCount] = useState(1);
+  const [winner, setWinner] = useState('');
 
   const getplayerOneInitialCards = async () => {
     const url = `https://deckofcardsapi.com/api/deck/${GameId}/draw/?count=10`;
@@ -113,6 +114,11 @@ const UsersProvider = ({ children }) => {
           );
           setplayerOneCards(newPlayerOneCards);
         }
+        else
+        {
+            setWinner(`El jugador ${users[0].name} ha ganado el juego`);
+            setCount(16);
+        }
       } else console.log("Hay cartas de esta pinta, no se mete al mazo");
     } else {
       console.log("No hay de este valor, no se mete");
@@ -184,6 +190,11 @@ const UsersProvider = ({ children }) => {
           );
           setplayerTwoCards(newPlayerTwoCards);
         }
+        else
+        {
+            setWinner(`El jugador ${users[1].name} ha ganado el juego`);
+            setCount(16);
+        }
       } else console.log("Hay cartas de esta pinta, no se mete al mazo");
     } else {
       console.log("No hay de este valor, no se mete");
@@ -206,7 +217,8 @@ const UsersProvider = ({ children }) => {
         playerOneCards,
         playerTwoCards,
         handlerCards,
-        count
+        count,
+        winner
       }}
     >
       {children}
