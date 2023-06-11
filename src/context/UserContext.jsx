@@ -10,10 +10,12 @@ const users = [
 
 var GameId = "";
 
+// eslint-disable-next-line react/prop-types
 const UsersProvider = ({ children }) => {
   const [Users, setUsers] = useState(users);
   const [playerOneCards, setplayerOneCards] = useState([]);
   const [playerTwoCards, setplayerTwoCards] = useState([]);
+  const [count, setCount] = useState(1);
 
   const getplayerOneInitialCards = async () => {
     const url = `https://deckofcardsapi.com/api/deck/${GameId}/draw/?count=10`;
@@ -189,8 +191,11 @@ const UsersProvider = ({ children }) => {
   };
 
   const handlerCards = () => {
-    getplayerOneCard();
-    getplayerTwoCard();
+    if (count < 17) {
+      setCount(count + 1);
+      getplayerOneCard();
+      getplayerTwoCard();
+    }
   };
 
   return (
@@ -201,6 +206,7 @@ const UsersProvider = ({ children }) => {
         playerOneCards,
         playerTwoCards,
         handlerCards,
+        count
       }}
     >
       {children}
