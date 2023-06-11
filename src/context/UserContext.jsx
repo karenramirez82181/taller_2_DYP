@@ -51,9 +51,70 @@ const UsersProvider = ({ children }) => {
     const url = `https://deckofcardsapi.com/api/deck/${GameId}/draw/?count=1`;
     const response = await fetch(url);
     const data = await response.json();
-    const newCards = [...playerOneCards];
-    newCards[0] = data.cards[0];
-    setplayerOneCards(newCards);
+    console.log(data.cards[0]);
+    modifyPlayerOneCards(data.cards[0]);
+  };
+
+  const modifyPlayerOneCards = (newCardRequest) => {
+    const newCardValue = newCardRequest.value;
+    const newCardSuit = newCardRequest.suit;
+
+    const auxFilterPlayerOneCardsValue = playerOneCards.filter(
+      (c) => c.value === newCardValue
+    );
+    console.log(auxFilterPlayerOneCardsValue);
+
+    if (auxFilterPlayerOneCardsValue.length >= 1) {
+      const auxFilterPlayerOneCardsSuit = auxFilterPlayerOneCardsValue.filter(
+        (c) => c.suit === newCardSuit
+      );
+      if (auxFilterPlayerOneCardsSuit.length == 0) {
+        console.log("No hay cartas de esta pinta, se mete al mazo");
+        const auxModifyDifferentCard = playerOneCards.filter(
+          (c) => c.value != newCardValue
+        );
+        console.log("Arreglo de cartas diferentes: ");
+        console.log(auxModifyDifferentCard);
+
+        const valueCount = {};
+        const uniqueCards = [];
+
+        for (const card of auxModifyDifferentCard) {
+          if (valueCount[card.value]) {
+            valueCount[card.value]++;
+          } else {
+            valueCount[card.value] = 1;
+            uniqueCards.push(card);
+          }
+        }
+
+        var filteredCards = uniqueCards.filter(
+          (card) => valueCount[card.value] === 1
+        );
+
+        if (filteredCards.length == 0) {
+          filteredCards = uniqueCards.filter(
+            (card) => valueCount[card.value] === 2
+          );
+        }
+        if (filteredCards.length != 0) {
+          console.log("Cartas filtradas: ");
+          console.log(filteredCards);
+
+          const codeReplaceCard =
+            filteredCards[Math.floor(Math.random() * filteredCards.length)]
+              .code;
+          console.log(codeReplaceCard);
+
+          const newPlayerOneCards = playerOneCards.map((u) =>
+            u.code === codeReplaceCard ? newCardRequest : u
+          );
+          setplayerOneCards(newPlayerOneCards);
+        }
+      } else console.log("Hay cartas de esta pinta, no se mete al mazo");
+    } else {
+      console.log("No hay de este valor, no se mete");
+    }
   };
 
   const getplayerTwoCard = async () => {
@@ -106,17 +167,21 @@ const UsersProvider = ({ children }) => {
             (card) => valueCount[card.value] === 2
           );
         }
-        console.log("Cartas filtradas: ");
-        console.log(filteredCards);
 
-        const codeReplaceCard =
-          filteredCards[Math.floor(Math.random() * filteredCards.length)].code;
-        console.log(codeReplaceCard);
+        if (filteredCards.length != 0) {
+          console.log("Cartas filtradas: ");
+          console.log(filteredCards);
 
-        const newPlayerTwoCards = playerTwoCards.map((u) =>
-          u.code === codeReplaceCard ? newCardRequest : u
-        );
-        setplayerTwoCards(newPlayerTwoCards);
+          const codeReplaceCard =
+            filteredCards[Math.floor(Math.random() * filteredCards.length)]
+              .code;
+          console.log(codeReplaceCard);
+
+          const newPlayerTwoCards = playerTwoCards.map((u) =>
+            u.code === codeReplaceCard ? newCardRequest : u
+          );
+          setplayerTwoCards(newPlayerTwoCards);
+        }
       } else console.log("Hay cartas de esta pinta, no se mete al mazo");
     } else {
       console.log("No hay de este valor, no se mete");
